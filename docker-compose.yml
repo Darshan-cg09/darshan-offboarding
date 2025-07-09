@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: postgres-offboarding
+    ports:
+      - "6075:5432"
+    environment:
+      POSTGRES_DB: offboarding_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin123
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - offboarding-network
+
+  backend:
+    build: ./Backend
+    container_name: backend-offboarding
+    ports:
+      - "5040:5040"
+    environment:
+      DB_HOST: postgres
+      DB_USER: postgres
+      DB_PASSWORD: admin123
+      DB_NAME: offboarding_db
+      DB_PORT: 5432
+      PORT: 5040
+    depends_on:
+      - postgres
+    networks:
+      - offboarding-network
+
+  employee-offboarding:
+    build: ./employee-offboarding
+    container_name: employee-offboarding
+    ports:
+      - "9065:80"
+    networks:
+      - offboarding-network
+
+  hr-offboarding:
+    build: ./hr-offboarding
+    container_name: hr-offboarding
+    ports:
+      - "9066:80"
+    networks:
+      - offboarding-network
+
+volumes:
+  postgres_data:
+
+networks:
+  offboarding-network:
+    driver: bridge
+
