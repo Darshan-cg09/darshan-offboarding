@@ -5,7 +5,7 @@ services:
     image: postgres:15
     container_name: postgres-offboarding
     ports:
-      - "6075:5432"
+      - "5616:5432"
     environment:
       POSTGRES_DB: offboarding_db
       POSTGRES_USER: postgres
@@ -19,14 +19,14 @@ services:
     build: ./Backend
     container_name: backend-offboarding
     ports:
-      - "5040:5040"
+      - "3616:3616"
     environment:
       DB_HOST: postgres
       DB_USER: postgres
       DB_PASSWORD: admin123
       DB_NAME: offboarding_db
       DB_PORT: 5432
-      PORT: 5040
+      PORT: 3616
     depends_on:
       - postgres
     networks:
@@ -36,7 +36,7 @@ services:
     build: ./employee-offboarding
     container_name: employee-offboarding
     ports:
-      - "9065:80"
+      - "8625:80"
     networks:
       - offboarding-network
 
@@ -44,7 +44,7 @@ services:
     build: ./hr-offboarding
     container_name: hr-offboarding
     ports:
-      - "9066:80"
+      - "8626:80"
     networks:
       - offboarding-network
 
