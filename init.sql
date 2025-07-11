@@ -1,3 +1,5 @@
+DROP TABLE IF EXISTS submissions;
+
 CREATE TABLE submissions (
     id SERIAL PRIMARY KEY,
     employee_id VARCHAR(7),
@@ -19,7 +21,7 @@ CREATE TABLE submissions (
     submission_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-
+-- Create indexes
 CREATE INDEX idx_employee_id ON submissions (employee_id);
 CREATE INDEX idx_full_name ON submissions (full_name);
 CREATE INDEX idx_status ON submissions (status);
